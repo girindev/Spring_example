@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.mapper.MemberMapper">
+	<insert id="joinMember" parameterType="MemberVO">
+		Insert into member(ID,PASSWORD,EMAIL,PHONE)
+		values(#{id}, #{password}, #{email}, #{phone})
+	</insert>
+	<select id="loginMember" parameterType="java.util.HashMap" resultType="MemberVO">
+		Select <include refid="memSql"/> 
+		from member 
+		where id=#{id} AND password=#{password}
+	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="MemberVO">
+		SELECT <include refid="memSql"/> 
+		from member 
+		where id=#{id}
+	</select>
+	
+	<update id="updateMyInfo" parameterType="java.util.HashMap">
+		Update member 
+		set email=#{email}, phone=#{phone}
+		where id=#{id} 
+	</update>
+	
+	<sql id="memSql">
+		member_num as "memberNum" , id, password, phone, email
+	</sql>
+</mapper>

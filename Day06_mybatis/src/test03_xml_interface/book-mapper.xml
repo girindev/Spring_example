@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- interface명의 full pakage명 -->
+<!-- <mapper namespace="psh"> -->
+<mapper namespace="test03_xml_interface.BookMapper">
+	<insert id="insert" parameterType="BookVO">
+		INSERT INTO BOOK(TITLE, PUBLISHER, PRICE, WRITER)
+			VALUES(#{jTitle}, #{jPublisher}, #{jPrice}, #{jWriter})
+	</insert>
+	
+   <select id="selectList" resultMap="bookResultMap">
+        SELECT * FROM BOOK
+    </select>
+     
+    <select id="selectBook" resultMap="bookResultMap">
+        SELECT * FROM BOOK WHERE BOOK_NUM=#{bookNum}
+    </select>
+     
+    <resultMap type="BookVO" id="bookResultMap">
+        <result column="BOOK_NUM" property="jBookNum"/>
+        <result column="TITLE" property="jTitle"/>
+        <result column="PUBLISHER" property="jPublisher"/>
+        <result column="PRICE" property="jPrice"/>
+        <result column="WRITER" property="jWriter"/>      
+    </resultMap>
+</mapper>

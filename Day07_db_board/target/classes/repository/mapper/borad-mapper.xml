@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="repository.mapper.BoardMapper">
+	<insert id="insert" parameterType="BoardVO">
+		INSERT INTO BOARD(write_date, review_cnt, writer, password, title, content)
+			VALUES(#{write_date}, #{review_cnt}, #{writer}, #{password}, #{title}, #{content})
+	</insert>
+	
+	<select id="selectAll" resultType="BoardVO" parameterType="java.util.HashMap">
+		SELECT * FROM Board ORDER BY write_num desc limit #{startRow},#{count};
+	</select>
+	
+	<select id="selectBoard" resultType="BoardVO">
+		SELECT * FROM board WHERE write_num = #{write_num};
+<!-- 	SELECT * FROM board WHERE write_num = #{value} -->
+	</select>
+	
+	<select id="selectReply" resultType="BoardVO">
+		SELECT * FROM board WHERE reply_num = #{write_num};
+<!-- 	SELECT * FROM board WHERE write_num = #{value} -->
+	</select>
+	<update id="updateBoard" parameterType="BoardVO">
+		UPDATE board set write_date = #{write_date}, writer = #{writer}, password = #{password},
+			title = #{title}, content = #{content} WHERE write_num = #{write_num} 
+	</update>
+	
+	<update id="updateReviewCnt" parameterType="java.util.HashMap">
+		UPDATE board set review_cnt = #{review_cnt} where write_num = #{write_num}
+	</update>
+	<delete id="deleteBoard" parameterType="BoardVO">
+		DELETE FROM board where write_num = #{write_num};
+	</delete>
+	<select id="checkPassword" resultType="String">
+		SELECT password FROM board where write_num = #{write_num}
+	</select>
+	<insert id="replayInsert" parameterType="BoardVO">
+			INSERT INTO BOARD(reply_num, write_date, review_cnt, writer, password, title, content)
+			VALUES(#{reply_num}, #{write_date}, #{review_cnt}, #{writer}, #{password}, #{title}, #{content})
+	</insert>
+</mapper>

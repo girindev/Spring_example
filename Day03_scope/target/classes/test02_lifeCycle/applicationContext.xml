@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+<!-- 	객체의 생성과 소멸 시점에 실행할 함수를 정할 수 있다. -->
+	<bean id="sample" class="test02_lifeCycle.Sample" 
+		init-method="myStart" destroy-method="myFinish"></bean>
+
+</beans>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="psh">
+	<insert id="insert" parameterType="BookVO">
+		INSERT INTO BOOK(TITLE, PUBLISHER, PRICE, WRITER)
+			VALUES(#{jTitle}, #{jPublisher}, #{jPrice}, #{jWriter})
+	</insert>
+	<select id="selectList" resultType="BookVO">
+		SELECT <include refid="columnAlias"/> FROM BOOK
+	</select>
+	<sql id="columnAlias">
+		BOOK_NUM as "jBookNum", 
+		TITLE as "jTitle",
+		PUBLISHER as "jPublisher",
+		PRICE as "jPrice",
+		WRITER as "jWriter"
+	</sql>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		p:url="jdbc:mysql://localhost/spring"
+		p:driverClassName="com.mysql.jdbc.Driver"
+		p:username="root"
+		p:password="sds1501"
+	/>
+	<bean id="factory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="typeAliasesPackage" value="vo" ></property>
+		<property name="mapperLocations" value="classpath:/*/mapper/*.xml"></property>
+	</bean>
+	<bean id="sst" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="factory"></constructor-arg>
+	</bean>		
+	<bean id="boardDao" class="repository.BoardDao">
+		<property name="session" ref="sst"></property>
+	</bean>
+	<bean id="boardService" class="service.BoardService">
+		<property name="dao" ref="boardDao"></property>
+	</bean>
+</beans>
